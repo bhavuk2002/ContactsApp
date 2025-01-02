@@ -6,40 +6,13 @@ import {
   StyleSheet,
 } from "react-native";
 import { useRouter } from "expo-router";
-
-const contacts = [
-  {
-    id: "1",
-    name: "Bhavuk Mittal",
-    phone: "+91 78348 77626",
-    email: "vvbnmittal@gmail.com",
-    address: "Delhi, India",
-  },
-  {
-    id: "2",
-    name: "Bhavuk Mittal",
-    phone: "+91 78348 77626",
-    email: "vvbnmittal@gmail.com",
-    address: "Delhi, India",
-  },
-  {
-    id: "3",
-    name: "Bhavuk Mittal",
-    phone: "+91 78348 77626",
-    email: "vvbnmittal@gmail.com",
-    address: "Delhi, India",
-  },
-  {
-    id: "4",
-    name: "Bhavuk Mittal",
-    phone: "+91 78348 77626",
-    email: "vvbnmittal@gmail.com",
-    address: "Delhi, India",
-  },
-];
+import { useSelector } from "react-redux";
 
 export default function Index() {
   const router = useRouter();
+
+  const contacts = useSelector((state) => state.contacts.contacts);
+  console.log(contacts);
 
   const handleAddContact = () => {
     router.push("add-edit");

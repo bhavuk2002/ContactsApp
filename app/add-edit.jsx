@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { addContact } from "../redux/contactSlice";
 
 export default function AddEditContact() {
   const router = useRouter();
@@ -19,9 +21,21 @@ export default function AddEditContact() {
   const [phone, setPhone] = useState(contactDetails.phone || "");
   const [email, setEmail] = useState(contactDetails.email || "");
   const [address, setAddress] = useState(contactDetails.address || "");
+  const dispatch = useDispatch();
+
+  const handleAddContact = () => {
+    const newContact = {
+      name: name,
+      phone: phone,
+      email: email,
+      address: address,
+    };
+    dispatch(addContact(newContact)); // Add contact to Redux store
+  };
 
   const handleSave = () => {
-    // Logic for saving or updating contact
+    // Logic
+    handleAddContact();
     router.back();
   };
 
