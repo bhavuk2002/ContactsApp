@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Index() {
   const router = useRouter();
@@ -25,37 +26,48 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={contacts}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.contactCard}
-            onPress={() => handleViewDetails(item)}
-          >
-            <Text style={styles.contactName}>{item.name}</Text>
-            <Text style={styles.contactPhone}>{item.phone}</Text>
-          </TouchableOpacity>
-        )}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>No contacts yet</Text>
-        }
+    <>
+      <Stack.Screen
+        options={{
+          headerTitle: "Contacts",
+          headerRight: () => {
+            return (
+              <TouchableOpacity onPress={handleAddContact}>
+                <Ionicons name="add" size={24} color="black" />
+              </TouchableOpacity>
+            );
+          },
+        }}
       />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddContact}>
-        <Text style={styles.addButtonText}>Add Contact</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container}>
+        <FlatList
+          data={contacts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.contactCard}
+              onPress={() => handleViewDetails(item)}
+            >
+              <Text style={styles.contactName}>{item.name}</Text>
+              <Text style={styles.contactPhone}>{item.phone}</Text>
+            </TouchableOpacity>
+          )}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>No contacts yet</Text>
+          }
+        />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 8,
   },
   contactCard: {
-    padding: 16,
+    padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
@@ -69,20 +81,8 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     textAlign: "center",
-    marginTop: 20,
+    marginTop: 10,
     fontSize: 16,
     color: "gray",
-  },
-  addButton: {
-    backgroundColor: "#007BFF",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 16,
-  },
-  addButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
   },
 });
