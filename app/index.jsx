@@ -12,7 +12,6 @@ export default function Index() {
   const router = useRouter();
 
   const contacts = useSelector((state) => state.contacts.contacts);
-  console.log(contacts);
 
   const handleAddContact = () => {
     router.push("add-edit");

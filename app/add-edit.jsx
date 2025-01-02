@@ -44,7 +44,8 @@ export default function AddEditContact() {
       address: address,
     };
     dispatch(editContact(updatedContact));
-    router.back({
+    router.back();
+    router.replace({
       pathname: "details",
       params: { contact: JSON.stringify(updatedContact) },
     });
