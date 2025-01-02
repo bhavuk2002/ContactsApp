@@ -1,5 +1,6 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
+import { Stack } from "expo-router";
 import {
   View,
   TextInput,
@@ -25,40 +26,47 @@ export default function AddEditContact() {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Name"
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
+    <>
+      <Stack.Screen
+        options={{
+          headerTitle: isEditMode ? "Edit Contact" : "Add Contact",
+        }}
       />
-      <TextInput
-        placeholder="Phone"
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        keyboardType="phone-pad"
-      />
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        placeholder="Address"
-        style={styles.input}
-        value={address}
-        onChangeText={setAddress}
-      />
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Name"
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          placeholder="Phone"
+          style={styles.input}
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
+        />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+        <TextInput
+          placeholder="Address"
+          style={styles.input}
+          value={address}
+          onChangeText={setAddress}
+        />
 
-      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={styles.saveButtonText}>
-          {isEditMode ? "Update" : "Save"}
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+          <Text style={styles.saveButtonText}>
+            {isEditMode ? "Update" : "Save"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }
 
