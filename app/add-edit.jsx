@@ -9,11 +9,12 @@ import {
   Text,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { addContact } from "../redux/contactSlice";
+import { addContact, editContact } from "../redux/contactSlice";
 
 export default function AddEditContact() {
   const router = useRouter();
   const { contact } = useLocalSearchParams();
+
   const isEditMode = !!contact;
   const contactDetails = isEditMode ? JSON.parse(contact) : {};
 
@@ -33,10 +34,29 @@ export default function AddEditContact() {
     dispatch(addContact(newContact)); // Add contact to Redux store
   };
 
+  const handleEditContact = () => {
+    console.log("running edit");
+    const updatedContact = {
+      id: contactDetails.id,
+      name: name,
+      phone: phone,
+      email: email,
+      address: address,
+    };
+    dispatch(editContact(updatedContact));
+    router.back({
+      pathname: "details",
+      params: { contact: JSON.stringify(updatedContact) },
+    });
+  };
+
   const handleSave = () => {
-    // Logic
-    handleAddContact();
-    router.back();
+    if (isEditMode) {
+      handleEditContact();
+    } else {
+      handleAddContact();
+      router.back();
+    }
   };
 
   return (
