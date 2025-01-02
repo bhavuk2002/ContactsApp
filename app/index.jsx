@@ -41,6 +41,17 @@ const contacts = [
 export default function Index() {
   const router = useRouter();
 
+  const handleAddContact = () => {
+    router.push("add-edit");
+  };
+
+  const handleViewDetails = (contact) => {
+    router.push({
+      pathname: "details",
+      params: { contact: JSON.stringify(contact) },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -49,12 +60,7 @@ export default function Index() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.contactCard}
-            onPress={() =>
-              router.push({
-                pathname: "detail",
-                params: { contact: JSON.stringify(item) },
-              })
-            }
+            onPress={() => handleViewDetails(item)}
           >
             <Text style={styles.contactName}>{item.name}</Text>
             <Text style={styles.contactPhone}>{item.phone}</Text>
@@ -64,7 +70,7 @@ export default function Index() {
           <Text style={styles.emptyText}>No contacts yet</Text>
         }
       />
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} onPress={handleAddContact}>
         <Text style={styles.addButtonText}>Add Contact</Text>
       </TouchableOpacity>
     </View>
