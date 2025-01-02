@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useRouter } from "expo-router";
 
 const contacts = [
   {
@@ -38,13 +39,23 @@ const contacts = [
 ];
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <FlatList
         data={contacts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.contactCard}>
+          <TouchableOpacity
+            style={styles.contactCard}
+            onPress={() =>
+              router.push({
+                pathname: "detail",
+                params: { contact: JSON.stringify(item) },
+              })
+            }
+          >
             <Text style={styles.contactName}>{item.name}</Text>
             <Text style={styles.contactPhone}>{item.phone}</Text>
           </TouchableOpacity>
