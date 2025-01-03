@@ -76,13 +76,12 @@ export default function AddEditContact() {
           placeholder={"Phone"}
           value={phone}
           onChangeText={setPhone}
-          keyboardType="phone-pad"
+          // keyboardType="phone-pad"
         />
         <FormInput
           placeholder={"Email"}
           value={email}
           onChangeText={setEmail}
-          keyboardType="email-address"
         />
         <Text style={{ padding: 4, fontWeight: "semibold", fontSize: 14 }}>
           Address
