@@ -22,7 +22,9 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: [Install Node.js](https://nodejs.org/)
 - **Expo CLI**: [Install Expo CLI](https://docs.expo.dev/get-started/installation/)
+
   You can install it globally with the following command:
+
   ```bash
   npm install -g expo-cli
   ```
