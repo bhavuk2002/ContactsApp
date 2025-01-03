@@ -1,50 +1,105 @@
-# Welcome to your Expo app 👋
+# Contact Management App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple contact management application built with React Native and Expo. The app allows users to add, edit, view, and delete contacts, and supports persistence using Redux and Redux Persist for state management.
 
-## Get started
+## Demonstration Video
 
-1. Install dependencies
+For a demonstration of the app's functionality, check out this video:
 
-   ```bash
-   npm install
-   ```
+[Contacts App Demonstration](https://drive.google.com/file/d/1oPF2FJwJubyHdgUIjNG74O_LrrnF9dMm/view?usp=sharing)
 
-2. Start the app
+## Tech Stack
 
-   ```bash
-    npx expo start
-   ```
+- **React Native**: Framework for building mobile applications using JavaScript and React.
+- **Expo**: Open-source platform to build and run React Native applications.
+- **Expo Router**: Used for routing and navigation in the app.
+- **Redux**: State management tool for managing global state.
+- **JavaScript**: The primary language used for development.
 
-In the output, you'll find options to open the app in a
+## Prerequisites
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Before you begin, ensure you have the following installed:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Node.js**: [Install Node.js](https://nodejs.org/)
+- **Expo CLI**: [Install Expo CLI](https://docs.expo.dev/get-started/installation/)
+  You can install it globally with the following command:
+  ```bash
+  npm install -g expo-cli
+  ```
 
-## Get a fresh project
+## How to Run Locally
 
-When you're ready, run:
+1. Clone the Repository
+   First, clone the repository to your local machine:
 
 ```bash
-npm run reset-project
+git clone https://github.com/bhavuk2002/ContactsApp.git
+cd ContactsApp
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install Dependencies
+   Run the following command to install the required dependencies:
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Start the Expo Project
+   Once the dependencies are installed, start the project with Expo:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm expo start
+```
 
-## Join the community
+From here, you can run your app on simulator (Android or iOS), or on a physical target device.
 
-Join our community of developers creating universal apps.
+## Workflow
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Main Screens:
+   - Contact List: Displays a list of all contacts stored in the app. Each contact can be selected to view or edit details.
+   - Contact Details: Shows detailed information about a selected contact with options to edit or delete it.
+   - Add/Edit Contact: Allows users to add new contacts or edit existing ones.
+2. Navigation:
+
+   - The app uses Expo Router for screen transitions. The main navigation flow includes the contact list and individual contact detail views.
+   - The navigation is structured with Expo Router to handle routing between different screens in the app.
+
+3. State Management:
+   - Redux is used for state management to hold the list of contacts.
+   - Redux Persist is integrated to persist Redux state across app restarts. The state, including the list of contacts, is saved locally using AsyncStorage to ensure that data remains after the app is closed and reopened.
+4. Modals:
+   - A Modal component is used to confirm contact deletion, providing users with the option to proceed or cancel the action.
+5. User Actions:
+   - Add: Users can add new contacts through a form.
+   - Edit: Users can edit an existing contact by updating their details.
+   - Delete: Users can delete contacts with a confirmation modal.
+
+## Functionalities
+
+1.  Contact List:
+
+    - View a list of all contacts.
+    - Each contact displays the name and phone number.
+    - Select a contact to view or edit details.
+
+2.  Add/Edit Contact:
+
+    - Add new contact with name, phone, email, and address.
+    - Edit details of an existing contact.
+
+3.  Delete Contact:
+
+    - Delete a contact with a confirmation prompt.
+
+4.  Modal Confirmation:
+    - A modal window appears for delete confirmation with options to cancel or proceed.
+
+## Storage Used
+
+- Redux: Used for in-memory state management, storing the contact list and contact details.
+- Redux Persist: To persist the Redux state locally (using `AsyncStorage` by default), ensuring contacts remain available even after restarting the app.
+
+## Future Improvements
+
+- Integration with a backend for storing contacts remotely.
+- UI/UX improvements for a more polished design.
