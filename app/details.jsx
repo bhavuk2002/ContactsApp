@@ -1,17 +1,11 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { deleteContact } from "../redux/contactSlice";
+import DeleteModal from "../components/DeleteModal";
 
 export default function DetailView() {
   const router = useRouter();
@@ -19,16 +13,16 @@ export default function DetailView() {
   const { contact } = useLocalSearchParams();
   const contactDetails = JSON.parse(contact);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDeleteContact = () => {
     dispatch(deleteContact(contactDetails.id));
-    setShowModal(false);
+    setShowDeleteModal(false);
     router.back();
   };
 
   const handleCancelDelete = () => {
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
   const handleEditContact = () => {
@@ -51,7 +45,7 @@ export default function DetailView() {
                     <Ionicons name="pencil" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => setShowModal(true)}>
+                <TouchableOpacity onPress={() => setShowDeleteModal(true)}>
                   <Ionicons name="trash-outline" size={24} color="red" />
                 </TouchableOpacity>
               </View>
@@ -91,29 +85,11 @@ export default function DetailView() {
         </View>
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-        onRequestClose={handleCancelDelete}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Delete Contact</Text>
-            <Text style={styles.modalMessage}>
-              Are you sure you want to delete this contact?
-            </Text>
-            <View style={styles.modalActions}>
-              <Button title="No" onPress={handleCancelDelete} color="gray" />
-              <Button
-                title="Proceed"
-                onPress={handleDeleteContact}
-                color="red"
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <DeleteModal
+        showModal={showDeleteModal}
+        handleCancelDelete={handleCancelDelete}
+        handleDeleteContact={handleDeleteContact}
+      />
     </>
   );
 }
@@ -173,33 +149,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "gray",
     textAlign: "center",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: "80%",
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    alignItems: "center",
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  modalMessage: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  modalActions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
   },
 });
