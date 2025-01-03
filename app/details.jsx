@@ -88,7 +88,9 @@ export default function DetailView() {
         <View style={styles.addressContainer}>
           <Text style={styles.addressValue}>{contactDetails.street}</Text>
           <Text style={styles.addressValue}>
-            {`${contactDetails.city} ${contactDetails.country} ${contactDetails.pincode}`}
+            {`${contactDetails.city || ""} ${contactDetails.country || ""} ${
+              contactDetails.pincode || ""
+            }`}
           </Text>
         </View>
       </View>
