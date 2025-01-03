@@ -8,6 +8,7 @@ import {
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import ContactCard from "../components/ContactCard";
 
 export default function Index() {
   const router = useRouter();
@@ -44,13 +45,7 @@ export default function Index() {
           data={contacts}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.contactCard}
-              onPress={() => handleViewDetails(item)}
-            >
-              <Text style={styles.contactName}>{item.name}</Text>
-              <Text style={styles.contactPhone}>{item.phone}</Text>
-            </TouchableOpacity>
+            <ContactCard item={item} handleViewDetails={handleViewDetails} />
           )}
           ListEmptyComponent={
             <Text style={styles.emptyText}>No contacts yet</Text>
@@ -65,19 +60,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 8,
-  },
-  contactCard: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  contactName: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  contactPhone: {
-    fontSize: 14,
-    color: "gray",
   },
   emptyText: {
     textAlign: "center",

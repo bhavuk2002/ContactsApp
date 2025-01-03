@@ -1,13 +1,7 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import { Stack } from "expo-router";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../redux/contactSlice";
 import FormInput from "../components/FormInput";
@@ -52,7 +46,7 @@ export default function AddEditContact() {
       country: country,
       pincode: pincode,
     };
-    dispatch(editContact(updatedContact));
+    dispatch(editContact(updatedContact)); // update contact to Redux store
     router.back();
     router.replace({
       pathname: "details",
