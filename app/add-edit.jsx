@@ -21,27 +21,35 @@ export default function AddEditContact() {
   const [name, setName] = useState(contactDetails.name || "");
   const [phone, setPhone] = useState(contactDetails.phone || "");
   const [email, setEmail] = useState(contactDetails.email || "");
-  const [address, setAddress] = useState(contactDetails.address || "");
+  const [street, setStreet] = useState(contactDetails.address || "");
+  const [city, setCity] = useState(contactDetails.address || "");
+  const [country, setCountry] = useState(contactDetails.address || "");
+  const [pincode, setPincode] = useState(contactDetails.address || "");
   const dispatch = useDispatch();
 
   const handleAddContact = () => {
     const newContact = {
       name: name,
       phone: phone,
-      email: email,
-      address: address,
+      email: email ? email : "",
+      street: street ? street : "",
+      city: city ? city : "",
+      country: country ? country : "",
+      pincode: pincode ? pincode : "",
     };
     dispatch(addContact(newContact)); // Add contact to Redux store
   };
 
   const handleEditContact = () => {
-    console.log("running edit");
     const updatedContact = {
       id: contactDetails.id,
       name: name,
       phone: phone,
       email: email,
-      address: address,
+      street: street,
+      city: city,
+      country: country,
+      pincode: pincode,
     };
     dispatch(editContact(updatedContact));
     router.back();
@@ -88,11 +96,32 @@ export default function AddEditContact() {
           onChangeText={setEmail}
           keyboardType="email-address"
         />
+        <Text style={{ padding: 4, fontWeight: "semibold", fontSize: 14 }}>
+          Address
+        </Text>
         <TextInput
-          placeholder="Address"
+          placeholder="Street"
           style={styles.input}
-          value={address}
-          onChangeText={setAddress}
+          value={street}
+          onChangeText={setStreet}
+        />
+        <TextInput
+          placeholder="City"
+          style={styles.input}
+          value={city}
+          onChangeText={setCity}
+        />
+        <TextInput
+          placeholder="Country"
+          style={styles.input}
+          value={country}
+          onChangeText={setCountry}
+        />
+        <TextInput
+          placeholder="Pincode"
+          style={styles.input}
+          value={pincode}
+          onChangeText={setPincode}
         />
 
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>

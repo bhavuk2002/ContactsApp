@@ -65,13 +65,34 @@ export default function DetailView() {
           <Text style={styles.avatarText}>{contactDetails.name[0]}</Text>
         </View>
         <Text style={styles.title}>{contactDetails.name}</Text>
-        <Text style={styles.detailText}>Phone: {contactDetails.phone}</Text>
-        <Text style={styles.detailText}>Email: {contactDetails.email}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={styles.phoneLabel}>Phone </Text>
+          <Text style={styles.phoneText}>{contactDetails.phone}</Text>
+        </View>
+        {contactDetails.email != "" ? (
+          <Text style={styles.detailText}>{contactDetails.email}</Text>
+        ) : (
+          <View></View>
+        )}
+
         {/* <Text style={styles.detailText}>Address: {contactDetails.address}</Text> */}
 
-        <Text style={styles.label}>Address:</Text>
-        <Text style={styles.value}>{contactDetails.address}</Text>
+        {/* <Text style={styles.label}></Text> */}
+
+        <View style={styles.addressContainer}>
+          <Text style={styles.addressValue}>{contactDetails.street}</Text>
+          <Text style={styles.addressValue}>
+            {`${contactDetails.city} ${contactDetails.country} ${contactDetails.pincode}`}
+          </Text>
+        </View>
       </View>
+      {/* </View> */}
 
       <Modal
         animationType="slide"
@@ -114,29 +135,47 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
-    margin: 18,
+    margin: 14,
   },
   avatarText: {
     fontSize: 32,
     color: "lightgray",
   },
+  phoneLabel: {
+    color: "gray",
+    fontWeight: "400",
+    fontSize: 16,
+  },
+  phoneText: {
+    color: "black",
+    fontWeight: "600",
+    fontSize: 18,
+    textAlign: "center",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 4,
   },
   detailText: {
     fontSize: 16,
     textAlign: "center",
   },
-  label: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginTop: 12,
-  },
   value: {
     fontSize: 16,
     marginBottom: 12,
+  },
+  addressContainer: {
+    paddingVertical: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  addressValue: {
+    fontSize: 16,
+    color: "gray",
+    textAlign: "center",
   },
   modalContainer: {
     flex: 1,
