@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../redux/contactSlice";
+import FormInput from "../components/FormInput";
 
 export default function AddEditContact() {
   const router = useRouter();
@@ -76,22 +77,15 @@ export default function AddEditContact() {
         }}
       />
       <View style={styles.container}>
-        <TextInput
-          placeholder="Name"
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          placeholder="Phone"
-          style={styles.input}
+        <FormInput placeholder={"Name"} value={name} onChangeText={setName} />
+        <FormInput
+          placeholder={"Phone"}
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
         />
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
+        <FormInput
+          placeholder={"Email"}
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -99,31 +93,22 @@ export default function AddEditContact() {
         <Text style={{ padding: 4, fontWeight: "semibold", fontSize: 14 }}>
           Address
         </Text>
-        <TextInput
-          placeholder="Street"
-          style={styles.input}
+        <FormInput
+          placeholder={"Street"}
           value={street}
           onChangeText={setStreet}
         />
-        <TextInput
-          placeholder="City"
-          style={styles.input}
-          value={city}
-          onChangeText={setCity}
-        />
-        <TextInput
-          placeholder="Country"
-          style={styles.input}
+        <FormInput placeholder={"City"} value={city} onChangeText={setCity} />
+        <FormInput
+          placeholder={"Country"}
           value={country}
           onChangeText={setCountry}
         />
-        <TextInput
-          placeholder="Pincode"
-          style={styles.input}
+        <FormInput
+          placeholder={"Pincode"}
           value={pincode}
           onChangeText={setPincode}
         />
-
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveButtonText}>
             {isEditMode ? "Update" : "Save"}
@@ -138,13 +123,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    marginBottom: 16,
-    padding: 8,
-    fontSize: 16,
   },
   saveButton: {
     backgroundColor: "#007BFF",

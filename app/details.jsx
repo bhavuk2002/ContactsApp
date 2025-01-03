@@ -81,10 +81,6 @@ export default function DetailView() {
           <View></View>
         )}
 
-        {/* <Text style={styles.detailText}>Address: {contactDetails.address}</Text> */}
-
-        {/* <Text style={styles.label}></Text> */}
-
         <View style={styles.addressContainer}>
           <Text style={styles.addressValue}>{contactDetails.street}</Text>
           <Text style={styles.addressValue}>
@@ -94,7 +90,6 @@ export default function DetailView() {
           </Text>
         </View>
       </View>
-      {/* </View> */}
 
       <Modal
         animationType="slide"
