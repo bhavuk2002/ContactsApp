@@ -22,10 +22,10 @@ export default function AddEditContact() {
   const [name, setName] = useState(contactDetails.name || "");
   const [phone, setPhone] = useState(contactDetails.phone || "");
   const [email, setEmail] = useState(contactDetails.email || "");
-  const [street, setStreet] = useState(contactDetails.address || "");
-  const [city, setCity] = useState(contactDetails.address || "");
-  const [country, setCountry] = useState(contactDetails.address || "");
-  const [pincode, setPincode] = useState(contactDetails.address || "");
+  const [street, setStreet] = useState(contactDetails.street || "");
+  const [city, setCity] = useState(contactDetails.city || "");
+  const [country, setCountry] = useState(contactDetails.country || "");
+  const [pincode, setPincode] = useState(contactDetails.pincode || "");
   const dispatch = useDispatch();
 
   const handleAddContact = () => {

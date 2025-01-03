@@ -14,10 +14,20 @@ const contactSlice = createSlice({
       state.nextId += 1;
     },
     editContact: (state, action) => {
-      const { id, name, phone, email, address } = action.payload;
+      const { id, name, phone, email, street, city, country, pincode } =
+        action.payload;
       const index = state.contacts.findIndex((contact) => contact.id === id);
       if (index !== -1) {
-        state.contacts[index] = { id, name, phone, email, address };
+        state.contacts[index] = {
+          id,
+          name,
+          phone,
+          email,
+          street,
+          city,
+          country,
+          pincode,
+        };
       }
     },
     deleteContact: (state, action) => {

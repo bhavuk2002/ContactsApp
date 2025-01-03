@@ -34,7 +34,7 @@ export default function DetailView() {
   const handleEditContact = () => {
     router.push({
       pathname: "add-edit",
-      params: { contact: JSON.stringify(contactDetails) },
+      params: { contact: contact },
     });
   };
 
