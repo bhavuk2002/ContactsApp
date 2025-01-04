@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import ContactCard from "../components/ContactCard";
+import RightHeaderButton from "../components/RightHeaderButton";
 
 export default function Index() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Index() {
     router.push("add-edit");
   };
 
-  const handleSearchToggle = () => {
+  const handleSearchContact = () => {
     router.push("search");
   };
 
@@ -39,16 +40,18 @@ export default function Index() {
           headerRight: () => {
             return (
               <View style={{ flexDirection: "row", columnGap: 12 }}>
-                <View style>
-                  <TouchableOpacity onPress={handleAddContact}>
-                    <Ionicons name="add" size={24} color="black" />
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <TouchableOpacity onPress={handleSearchToggle}>
-                    <Ionicons name={"search"} size={24} color="black" />
-                  </TouchableOpacity>
-                </View>
+                <RightHeaderButton
+                  name="add"
+                  size={24}
+                  colour={"black"}
+                  onPress={handleAddContact}
+                />
+                <RightHeaderButton
+                  name="search"
+                  size={24}
+                  colour={"black"}
+                  onPress={handleSearchContact}
+                />
               </View>
             );
           },
