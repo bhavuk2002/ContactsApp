@@ -8,6 +8,7 @@ import {
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import ContactCard from "../components/ContactCard";
 
 export default function Index() {
@@ -17,6 +18,10 @@ export default function Index() {
 
   const handleAddContact = () => {
     router.push("add-edit");
+  };
+
+  const handleSearchToggle = () => {
+    router.push("search");
   };
 
   const handleViewDetails = (contact) => {
@@ -33,9 +38,18 @@ export default function Index() {
           headerTitle: "Contacts",
           headerRight: () => {
             return (
-              <TouchableOpacity onPress={handleAddContact}>
-                <Ionicons name="add" size={24} color="black" />
-              </TouchableOpacity>
+              <View style={{ flexDirection: "row", columnGap: 12 }}>
+                <View style>
+                  <TouchableOpacity onPress={handleAddContact}>
+                    <Ionicons name="add" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <TouchableOpacity onPress={handleSearchToggle}>
+                    <Ionicons name={"search"} size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+              </View>
             );
           },
         }}

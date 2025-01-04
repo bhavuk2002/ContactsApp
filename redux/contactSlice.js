@@ -51,5 +51,14 @@ const contactSlice = createSlice({
   },
 });
 
+// Selector to filter contacts based on a search term
+export const selectFilteredContacts = (state, searchTerm) => {
+  if (searchTerm == "") return [];
+  const lowercasedSearchTerm = searchTerm.toLowerCase();
+  return state.contacts.contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(lowercasedSearchTerm)
+  );
+};
+
 export const { addContact, editContact, deleteContact } = contactSlice.actions;
 export default contactSlice.reducer;
