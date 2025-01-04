@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { deleteContact } from "../redux/contactSlice";
 import DeleteModal from "../components/DeleteModal";
+import RightHeaderButton from "../components/RightHeaderButton";
 
 export default function DetailView() {
   const router = useRouter();
@@ -39,15 +40,19 @@ export default function DetailView() {
           headerTitle: "Contact Details",
           headerRight: () => {
             return (
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ paddingRight: 8 }}>
-                  <TouchableOpacity onPress={handleEditContact}>
-                    <Ionicons name="pencil" size={24} color="black" />
-                  </TouchableOpacity>
-                </View>
-                <TouchableOpacity onPress={() => setShowDeleteModal(true)}>
-                  <Ionicons name="trash-outline" size={24} color="red" />
-                </TouchableOpacity>
+              <View style={{ flexDirection: "row", columnGap: 8 }}>
+                <RightHeaderButton
+                  onPress={handleEditContact}
+                  name="pencil"
+                  size={24}
+                  color="black"
+                />
+                <RightHeaderButton
+                  onPress={() => setShowDeleteModal(true)}
+                  name="trash-outline"
+                  size={24}
+                  color="red"
+                />
               </View>
             );
           },

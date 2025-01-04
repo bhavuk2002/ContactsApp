@@ -7,8 +7,6 @@ import {
 } from "react-native";
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 import ContactCard from "../components/ContactCard";
 import RightHeaderButton from "../components/RightHeaderButton";
 
