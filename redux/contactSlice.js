@@ -10,7 +10,20 @@ const contactSlice = createSlice({
     addContact: (state, action) => {
       const newContact = action.payload;
       newContact.id = state.nextId;
-      state.contacts.push(newContact);
+
+      // Find the correct position to insert the new contact
+      let index = state.contacts.findIndex(
+        (contact) => contact.name.localeCompare(newContact.name) > 0
+      );
+
+      if (index === -1) {
+        // If no larger element is found, append to the end
+        state.contacts.push(newContact);
+      } else {
+        // Insert at the found position
+        state.contacts.splice(index, 0, newContact);
+      }
+
       state.nextId += 1;
     },
     editContact: (state, action) => {
