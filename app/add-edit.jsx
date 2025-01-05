@@ -1,7 +1,7 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import { Stack } from "expo-router";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../redux/contactSlice";
 import FormInput from "../components/FormInput";
@@ -20,7 +20,28 @@ export default function AddEditContact() {
   const [city, setCity] = useState(contactDetails.city || "");
   const [country, setCountry] = useState(contactDetails.country || "");
   const [pincode, setPincode] = useState(contactDetails.pincode || "");
+
+  const [errors, setErrors] = useState({}); // State for validation errors
   const dispatch = useDispatch();
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!name.trim()) newErrors.name = "Name is required.";
+    if (!phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!/^\d{10}$/.test(phone)) {
+      newErrors.phone = "Phone number must contain exactly 10 digits.";
+    }
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (pincode.trim() && !/^\d{6}$/.test(pincode)) {
+      newErrors.pincode = "Pincode must be exactly 6 digits.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleAddContact = () => {
     const newContact = {
@@ -46,7 +67,7 @@ export default function AddEditContact() {
       country: country,
       pincode: pincode,
     };
-    dispatch(editContact(updatedContact)); // update contact to Redux store
+    dispatch(editContact(updatedContact)); // Update contact in Redux store
     router.back();
     router.replace({
       pathname: "details",
@@ -55,6 +76,7 @@ export default function AddEditContact() {
   };
 
   const handleSave = () => {
+    if (!validateForm()) return; // Stop if validation fails
     if (isEditMode) {
       handleEditContact();
     } else {
@@ -71,18 +93,37 @@ export default function AddEditContact() {
         }}
       />
       <View style={styles.container}>
-        <FormInput placeholder={"Name"} value={name} onChangeText={setName} />
+        <FormInput
+          placeholder={"Name"}
+          value={name}
+          onChangeText={(text) => {
+            setName(text);
+            setErrors((prev) => ({ ...prev, name: "" })); // Clear error on change
+          }}
+        />
+        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+
         <FormInput
           placeholder={"Phone"}
           value={phone}
-          onChangeText={setPhone}
+          onChangeText={(text) => {
+            setPhone(text);
+            setErrors((prev) => ({ ...prev, phone: "" })); // Clear error on change
+          }}
           // keyboardType="phone-pad"
         />
+        {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
+
         <FormInput
           placeholder={"Email"}
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(text) => {
+            setEmail(text);
+            setErrors((prev) => ({ ...prev, email: "" })); // Clear error on change
+          }}
         />
+        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+
         <Text style={{ padding: 4, fontWeight: "semibold", fontSize: 14 }}>
           Address
         </Text>
@@ -100,8 +141,15 @@ export default function AddEditContact() {
         <FormInput
           placeholder={"Pincode"}
           value={pincode}
-          onChangeText={setPincode}
+          onChangeText={(text) => {
+            setPincode(text);
+            setErrors((prev) => ({ ...prev, pincode: "" })); // Clear error on change
+          }}
         />
+        {errors.pincode && (
+          <Text style={styles.errorText}>{errors.pincode}</Text>
+        )}
+
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveButtonText}>
             {isEditMode ? "Update" : "Save"}
@@ -128,5 +176,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginTop: -8,
+    marginBottom: 8,
+    marginLeft: 4,
   },
 });
