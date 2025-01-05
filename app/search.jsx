@@ -86,7 +86,7 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
   },
   searchInput: {
     flex: 1,
