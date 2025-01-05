@@ -6,6 +6,7 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
+import * as MailComposer from "expo-mail-composer";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
@@ -73,6 +74,16 @@ export default function DetailView() {
     );
   };
 
+  const handleEmail = () => {
+    if (!contactDetails.email) {
+      Alert.alert("Error", "No email address available for this contact.");
+      return;
+    }
+    MailComposer.composeAsync({
+      recipients: [contactDetails.email],
+    }).catch(() => Alert.alert("Error", "Failed to compose email."));
+  };
+
   return (
     <>
       <Stack.Screen
@@ -128,7 +139,7 @@ export default function DetailView() {
                 <Ionicons name="chatbubble" size={26} color={"white"} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleVideoCall}>
+            <TouchableOpacity onPress={() => handleVideoCall}>
               <View style={styles.actionButton}>
                 <Ionicons name="videocam" size={26} color={"white"} />
               </View>
@@ -159,7 +170,9 @@ export default function DetailView() {
               </Text>
             </View>
             <View style={{ alignContent: "center", justifyContent: "center" }}>
-              <Ionicons name="mail" size={24} color={"gray"} />
+              <TouchableOpacity onPress={handleEmail}>
+                <Ionicons name="mail" size={24} color={"gray"} />
+              </TouchableOpacity>
             </View>
           </View>
         ) : null}
