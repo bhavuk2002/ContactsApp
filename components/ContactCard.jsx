@@ -12,13 +12,16 @@ const ContactCard = ({ item, handleViewDetails, isFirst, isLast }) => {
   const cardStyle = {
     borderBottomWidth: isLast ? 0 : 2, // Remove border for last card
   };
+  const avatarColor = {
+    backgroundColor: item.avatarColor,
+  };
 
   return (
     <TouchableOpacity onPress={() => handleViewDetails(item)}>
       <View style={[styles.contactCard, borderRadiusStyle]}>
         {/* Avatar Section */}
         <View style={styles.avatarContainer}>
-          <View style={styles.avatar}>
+          <View style={[styles.avatar, avatarColor]}>
             <Text style={styles.avatarText}>{item.name[0]}</Text>
           </View>
         </View>
@@ -48,13 +51,13 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderColor: "#ccc",
-    borderWidth: 1.5,
+    borderWidth: 0.5,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },
   avatarText: {
-    color: "#ccc",
+    color: "#fdfefe",
     fontWeight: "600",
     textAlign: "center",
     fontSize: 18,

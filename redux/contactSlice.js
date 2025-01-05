@@ -1,6 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
+const COLORS = [
+  "#0c967c",
+  "#15b76d",
+  "#18dc7f",
+  "#9bbe04",
+  "#1e4bc6",
+  "#0091ea",
+  "#ff9e00",
+  "#ff7b22",
+  "#e53d35",
+  "#ee2172",
+  "#e95b31",
+];
+
+const getRandomColor = () => {
+  return COLORS[Math.floor(Math.random() * COLORS.length)];
+};
+
 const contactSlice = createSlice({
   name: "contacts",
   initialState: {
@@ -11,7 +29,7 @@ const contactSlice = createSlice({
     addContact: (state, action) => {
       const newContact = action.payload;
       newContact.id = state.nextId;
-
+      newContact.avatarColor = getRandomColor();
       // Find the correct position to insert the new contact (keeping the array sorted)
       const index = state.contacts.findIndex(
         (contact) => contact.name.localeCompare(newContact.name) > 0
