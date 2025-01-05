@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    backgroundColor: "white",
     fontSize: 18,
     fontWeight: "500",
   },
@@ -98,6 +97,8 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   emptyText: {
+    justifyContent: "center",
+    paddingTop: 24,
     textAlign: "center",
     marginTop: 10,
     fontSize: 16,

@@ -88,8 +88,7 @@ export default function DetailView() {
     <>
       <Stack.Screen
         options={{
-          // statusBarTranslucent: () =>,
-          headerTitle: "Contact Details",
+          headerTitle: "",
           headerRight: () => (
             <View style={{ flexDirection: "row", columnGap: 8 }}>
               <RightHeaderButton
