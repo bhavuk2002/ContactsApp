@@ -16,6 +16,7 @@ export default function DetailView() {
   const dispatch = useDispatch();
   const { contact } = useLocalSearchParams();
   const contactDetails = JSON.parse(contact);
+  const color = "#010101";
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -129,7 +130,10 @@ export default function DetailView() {
       <View style={styles.container}>
         <View style={styles.detailBox}>
           {/* Avatar Positioned Half Out */}
-          <Avatar name={contactDetails.name} />
+          <Avatar
+            name={contactDetails.name}
+            backgroundColor={contactDetails.avatarColor}
+          />
 
           {/* Contact Name */}
           <Text style={styles.title}>{contactDetails.name}</Text>
@@ -145,17 +149,17 @@ export default function DetailView() {
             <ActionButton
               onPress={handleCall}
               iconName={"call"}
-              backgroundColor={"gray"}
+              backgroundColor={color}
             />
             <ActionButton
               onPress={handleSMS}
               iconName={"chatbubble"}
-              backgroundColor={"gray"}
+              backgroundColor={color}
             />
             {/* <ActionButton
               onPress={() => handleVideoCall}
               iconName={"videocam"}
-              backgroundColor={"gray"}
+              backgroundColor={color}
             /> */}
           </View>
         </View>
@@ -165,6 +169,7 @@ export default function DetailView() {
           value={contactDetails.email}
           onPress={handleEmail}
           iconName={"mail"}
+          iconColor={color}
         />
 
         <ContactInfoItem
@@ -172,6 +177,7 @@ export default function DetailView() {
           value={address}
           onPress={handleLocation}
           iconName={"location"}
+          iconColor={color}
         />
       </View>
 

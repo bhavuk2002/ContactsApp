@@ -12,7 +12,7 @@ const ContactCard = ({ item, handleViewDetails, isFirst, isLast }) => {
   const cardStyle = {
     borderBottomWidth: isLast ? 0 : 2, // Remove border for last card
   };
-  const avatarColor = {
+  const applyAvatarBackgroundColor = {
     backgroundColor: item.avatarColor,
   };
 
@@ -21,7 +21,7 @@ const ContactCard = ({ item, handleViewDetails, isFirst, isLast }) => {
       <View style={[styles.contactCard, borderRadiusStyle]}>
         {/* Avatar Section */}
         <View style={styles.avatarContainer}>
-          <View style={[styles.avatar, avatarColor]}>
+          <View style={[styles.avatar, applyAvatarBackgroundColor]}>
             <Text style={styles.avatarText}>{item.name[0]}</Text>
           </View>
         </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: "#fdfefe",
-    fontWeight: "600",
+    fontWeight: "500",
     textAlign: "center",
     fontSize: 18,
   },

@@ -2,21 +2,23 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const ContactInfoItem = ({ label, value, iconName, onPress }) => {
+const ContactInfoItem = ({ label, value, iconName, iconColor, onPress }) => {
   if (!value) return null; // Don't render if value is empty
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.label}>{label}</Text>
-        <Text style={styles.value}>{value}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.label}>{label}</Text>
+          <Text style={styles.value}>{value}</Text>
+        </View>
+        {onPress && (
+          <TouchableOpacity onPress={onPress} style={styles.icon}>
+            <Ionicons name={iconName} size={24} color={iconColor} />
+          </TouchableOpacity>
+        )}
       </View>
-      {onPress && (
-        <TouchableOpacity onPress={onPress} style={styles.icon}>
-          <Ionicons name={iconName} size={24} color="gray" />
-        </TouchableOpacity>
-      )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

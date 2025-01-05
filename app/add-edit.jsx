@@ -166,16 +166,16 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   saveButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#0072de",
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 24,
     alignItems: "center",
     marginTop: 16,
   },
   saveButtonText: {
-    color: "#fff",
+    color: "#fafafa",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "600",
   },
   errorText: {
     color: "red",
