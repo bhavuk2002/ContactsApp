@@ -2,6 +2,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import { Stack } from "expo-router";
 import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
+import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../redux/contactSlice";
 import FormInput from "../components/FormInput";
@@ -54,6 +55,13 @@ export default function AddEditContact() {
       pincode: pincode ? pincode : "",
     };
     dispatch(addContact(newContact)); // Add contact to Redux store
+    Toast.show({
+      type: "info",
+      position: "bottom",
+      text1: "Contact Saved",
+      visibilityTime: 1200,
+      autoHide: true,
+    });
   };
 
   const handleEditContact = () => {
@@ -66,8 +74,16 @@ export default function AddEditContact() {
       city: city,
       country: country,
       pincode: pincode,
+      avatarColor: contactDetails.avatarColor,
     };
     dispatch(editContact(updatedContact)); // Update contact in Redux store
+    Toast.show({
+      type: "success",
+      position: "bottom",
+      text1: "Contact Updated",
+      visibilityTime: 1200,
+      autoHide: true,
+    });
     router.back();
     router.replace({
       pathname: "details",

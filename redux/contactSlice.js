@@ -44,8 +44,17 @@ const contactSlice = createSlice({
       state.nextId += 1;
     },
     editContact: (state, action) => {
-      const { id, name, phone, email, street, city, country, pincode } =
-        action.payload;
+      const {
+        id,
+        name,
+        phone,
+        email,
+        street,
+        city,
+        country,
+        pincode,
+        avatarColor,
+      } = action.payload;
 
       const index = state.contacts.findIndex((contact) => contact.id === id);
       if (index !== -1) {
@@ -59,6 +68,7 @@ const contactSlice = createSlice({
           city,
           country,
           pincode,
+          avatarColor,
         };
 
         // Re-sort the array after editing to maintain order
