@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
 import ContactCard from "../components/ContactCard";
@@ -59,7 +53,7 @@ export default function Index() {
                   onPress={handleAddContact}
                 />
                 <RightHeaderButton
-                  name="search"
+                  name="search-outline"
                   size={24}
                   colour={"black"}
                   onPress={handleSearchContact}
@@ -86,7 +80,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
     marginTop: 8,
   },
   emptyText: {
