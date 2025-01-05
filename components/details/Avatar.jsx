@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   avatar: {
+    borderWidth: 0.5,
+    borderColor: "#ccc",
     width: 100,
     height: 100,
     borderRadius: 50,
