@@ -55,8 +55,11 @@ const contactSlice = createSlice({
 export const selectFilteredContacts = (state, searchTerm) => {
   if (searchTerm == "") return [];
   const lowercasedSearchTerm = searchTerm.toLowerCase();
-  return state.contacts.contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(lowercasedSearchTerm)
+  return state.contacts.contacts.filter(
+    (contact) =>
+      contact.name.toLowerCase().includes(lowercasedSearchTerm) ||
+      contact.email.toLowerCase().includes(lowercasedSearchTerm) ||
+      contact.phone.includes(lowercasedSearchTerm)
   );
 };
 

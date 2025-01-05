@@ -1,15 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { View, Text, FlatList, StyleSheet, TextInput } from "react-native";
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
 import { selectFilteredContacts } from "../redux/contactSlice";
+import { debounce } from "lodash";
 import ContactCard from "../components/ContactCard";
 
 export default function Search() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  // Debounced update of search term
+  const updateSearchTerm = useMemo(
+    () =>
+      debounce((text) => {
+        setDebouncedSearchTerm(text);
+      }, 300), // 300ms debounce delay
+    []
+  );
+
+  const handleSearch = (text) => {
+    setSearchTerm(text);
+    updateSearchTerm(text); // Trigger the debounced update
+  };
+
+  const handleViewDetails = (contact) => {
+    router.push({
+      pathname: "details",
+      params: { contact: JSON.stringify(contact) },
+    });
+  };
 
   const filteredContacts = useSelector((state) =>
-    selectFilteredContacts(state, searchTerm)
+    selectFilteredContacts(state, debouncedSearchTerm)
   );
 
   console.log(filteredContacts);
@@ -23,7 +47,7 @@ export default function Search() {
               style={styles.searchInput}
               placeholder="Search"
               value={searchTerm}
-              onChangeText={setSearchTerm}
+              onChangeText={handleSearch}
               autoFocus={true}
             />
           ),
@@ -34,7 +58,7 @@ export default function Search() {
           data={filteredContacts}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <ContactCard item={item} handleViewDetails />
+            <ContactCard item={item} handleViewDetails={handleViewDetails} />
           )}
           ListEmptyComponent={
             <Text style={styles.emptyText}>
