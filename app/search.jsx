@@ -108,9 +108,8 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     justifyContent: "center",
-    paddingTop: 24,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 8,
     fontSize: 16,
     color: "gray",
   },
