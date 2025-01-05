@@ -31,7 +31,6 @@ export default function Index() {
   };
 
   const renderItem = ({ item, index }) => {
-    console.log(item);
     const isFirst = index === 0;
     const isLast = index === contacts.length - 1;
 

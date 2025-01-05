@@ -16,7 +16,7 @@ export default function Search() {
     () =>
       debounce((text) => {
         setDebouncedSearchTerm(text);
-      }, 300), // 300ms debounce delay
+      }, 200), // 200ms debounce delay
     []
   );
 
@@ -32,11 +32,23 @@ export default function Search() {
     });
   };
 
+  const renderItem = ({ item, index }) => {
+    const isFirst = index === 0;
+    const isLast = index === filteredContacts.length - 1;
+
+    return (
+      <ContactCard
+        item={item}
+        handleViewDetails={handleViewDetails}
+        isFirst={isFirst}
+        isLast={isLast}
+      />
+    );
+  };
+
   const filteredContacts = useSelector((state) =>
     selectFilteredContacts(state, debouncedSearchTerm)
   );
-
-  console.log(filteredContacts);
 
   return (
     <>
@@ -57,9 +69,7 @@ export default function Search() {
         <FlatList
           data={filteredContacts}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ContactCard item={item} handleViewDetails={handleViewDetails} />
-          )}
+          renderItem={(item) => renderItem(item)}
           ListEmptyComponent={
             <Text style={styles.emptyText}>
               {searchTerm
@@ -76,7 +86,7 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 2,
   },
   searchInput: {
     flex: 1,
