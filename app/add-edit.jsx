@@ -1,11 +1,11 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import { Stack } from "expo-router";
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../redux/contactSlice";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/add-edit/FormInput";
 
 export default function AddEditContact() {
   const router = useRouter();

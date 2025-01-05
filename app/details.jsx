@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { deleteContact } from "../redux/contactSlice";
-import DeleteModal from "../components/DeleteModal";
+import DeleteModal from "../components/details/DeleteModal";
 import RightHeaderButton from "../components/RightHeaderButton";
 import ActionButton from "../components/details/ActionButton";
 import ContactInfoItem from "../components/details/ContactInfoItem";

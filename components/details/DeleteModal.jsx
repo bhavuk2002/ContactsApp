@@ -1,6 +1,13 @@
 // components/DeleteModal.js
 import React from "react";
-import { Modal, View, Text, Button, StyleSheet } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 const DeleteModal = ({
   showModal,
@@ -21,8 +28,20 @@ const DeleteModal = ({
             Are you sure you want to delete this contact?
           </Text>
           <View style={styles.modalActions}>
-            <Button title="Cancel" onPress={handleCancelDelete} color="gray" />
-            <Button title="Delete" onPress={handleDeleteContact} color="red" />
+            <TouchableOpacity onPress={handleCancelDelete}>
+              <Text
+                style={{ color: "#505050", fontSize: 18, fontWeight: "500" }}
+              >
+                Cancel
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleDeleteContact}>
+              {/* <View style={[styles.button, { backgroundColor }]}> */}
+              <Text style={{ color: "red", fontSize: 18, fontWeight: "500" }}>
+                Delete
+              </Text>
+              {/* </View> */}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
