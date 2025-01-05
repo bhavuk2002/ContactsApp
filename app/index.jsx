@@ -63,8 +63,9 @@ export default function Index() {
           },
         }}
       />
-      <View style={styles.container}>
+      <View>
         <FlatList
+          style={styles.container}
           data={contacts}
           keyExtractor={(item) => item.id}
           renderItem={(item) => renderItem(item)}
@@ -79,8 +80,9 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 10,
+    paddingBottom: 18,
     marginTop: 8,
   },
   emptyText: {

@@ -81,7 +81,7 @@ export default function DetailView() {
   };
 
   const address = [
-    contactDetails.street && `${contactDetails.street},`,
+    contactDetails.street && `${contactDetails.street}`,
     contactDetails.city && `${contactDetails.city}`,
     contactDetails.country && `${contactDetails.country}`,
     contactDetails.pincode && `${contactDetails.pincode}`,

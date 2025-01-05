@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 const RightHeaderButton = ({ name, size, color, onPress }) => {
   return (
     <View>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPressIn={onPress}>
         <Ionicons name={name} size={size} color={color} />
       </TouchableOpacity>
     </View>
