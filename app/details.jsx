@@ -1,20 +1,15 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Linking,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Alert, Linking } from "react-native";
 import * as MailComposer from "expo-mail-composer";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { deleteContact } from "../redux/contactSlice";
 import DeleteModal from "../components/DeleteModal";
 import RightHeaderButton from "../components/RightHeaderButton";
+import ActionButton from "../components/details/ActionButton";
+import ContactInfoItem from "../components/details/ContactInfoItem";
+import Avatar from "../components/details/Avatar";
 
 export default function DetailView() {
   const router = useRouter();
@@ -84,13 +79,36 @@ export default function DetailView() {
     }).catch(() => Alert.alert("Error", "Failed to compose email."));
   };
 
+  const address = [
+    contactDetails.street && `${contactDetails.street},`,
+    contactDetails.city && `${contactDetails.city}`,
+    contactDetails.country && `${contactDetails.country}`,
+    contactDetails.pincode && `${contactDetails.pincode}`,
+  ]
+    .filter(Boolean) // Remove falsy values
+    .join(" "); // Join the non-empty parts with a space
+
+  const handleLocation = () => {
+    if (!address) {
+      Alert.alert("Error", "No phone number available for this contact.");
+      return;
+    }
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      address
+    )}`;
+    // Open the URL
+    Linking.openURL(url).catch((err) =>
+      Alert.alert("Error", "Failed to initiate call.")
+    );
+  };
+
   return (
     <>
       <Stack.Screen
         options={{
           headerTitle: "",
           headerRight: () => (
-            <View style={{ flexDirection: "row", columnGap: 8 }}>
+            <View style={{ flexDirection: "row", columnGap: 18 }}>
               <RightHeaderButton
                 onPress={handleEditContact}
                 name="pencil"
@@ -101,7 +119,7 @@ export default function DetailView() {
                 onPress={() => setShowDeleteModal(true)}
                 name="trash-outline"
                 size={24}
-                color="red"
+                color="black"
               />
             </View>
           ),
@@ -111,11 +129,7 @@ export default function DetailView() {
       <View style={styles.container}>
         <View style={styles.detailBox}>
           {/* Avatar Positioned Half Out */}
-          <View style={styles.avatarContainer}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{contactDetails.name[0]}</Text>
-            </View>
-          </View>
+          <Avatar name={contactDetails.name} />
 
           {/* Contact Name */}
           <Text style={styles.title}>{contactDetails.name}</Text>
@@ -128,63 +142,37 @@ export default function DetailView() {
 
           {/* Action Buttons */}
           <View style={styles.actionContainer}>
-            <TouchableOpacity onPress={handleCall}>
-              <View style={styles.actionButton}>
-                <Ionicons name="call" size={26} color={"white"} />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleSMS}>
-              <View style={styles.actionButton}>
-                <Ionicons name="chatbubble" size={26} color={"white"} />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleVideoCall}>
-              <View style={styles.actionButton}>
-                <Ionicons name="videocam" size={26} color={"white"} />
-              </View>
-            </TouchableOpacity>
+            <ActionButton
+              onPress={handleCall}
+              iconName={"call"}
+              backgroundColor={"gray"}
+            />
+            <ActionButton
+              onPress={handleSMS}
+              iconName={"chatbubble"}
+              backgroundColor={"gray"}
+            />
+            {/* <ActionButton
+              onPress={() => handleVideoCall}
+              iconName={"videocam"}
+              backgroundColor={"gray"}
+            /> */}
           </View>
         </View>
 
-        {/* Email (if present) */}
-        {contactDetails.email ? (
-          <View
-            style={{
-              marginTop: 16,
-              borderRadius: 24,
-              // height: 52,
-              backgroundColor: "#fdfefe",
-              paddingHorizontal: 24,
-              paddingVertical: 12,
-              flexDirection: "row",
-              alignContent: "center",
-              // paddingRight: 1,
-              justifyContent: "space-between",
-            }}
-          >
-            <View>
-              <Text style={{ color: "gray", fontSize: 12 }}>Email</Text>
-              <Text style={{ fontWeight: "400", fontSize: 16 }}>
-                {contactDetails.email}
-              </Text>
-            </View>
-            <View style={{ alignContent: "center", justifyContent: "center" }}>
-              <TouchableOpacity onPress={handleEmail}>
-                <Ionicons name="mail" size={24} color={"gray"} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        ) : null}
+        <ContactInfoItem
+          label={"Email"}
+          value={contactDetails.email}
+          onPress={handleEmail}
+          iconName={"mail"}
+        />
 
-        {/* Address */}
-        <View style={styles.addressContainer}>
-          <Text style={styles.addressValue}>{contactDetails.street}</Text>
-          <Text style={styles.addressValue}>
-            {`${contactDetails.city || ""} ${contactDetails.country || ""} ${
-              contactDetails.pincode || ""
-            }`}
-          </Text>
-        </View>
+        <ContactInfoItem
+          label={"Address"}
+          value={address}
+          onPress={handleLocation}
+          iconName={"location"}
+        />
       </View>
 
       <DeleteModal
@@ -199,7 +187,7 @@ export default function DetailView() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 2,
+    padding: 10,
     paddingTop: 24,
   },
   detailBox: {
@@ -210,24 +198,6 @@ const styles = StyleSheet.create({
     position: "relative",
     marginTop: 50,
     overflow: "visible",
-  },
-  avatarContainer: {
-    position: "absolute",
-    top: -50,
-    alignSelf: "center",
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderColor: "lightgray",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "gray",
-  },
-  avatarText: {
-    fontSize: 32,
-    color: "white",
   },
   title: {
     fontSize: 24,
@@ -258,27 +228,5 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 24,
     paddingVertical: 18,
-  },
-  actionButton: {
-    backgroundColor: "gray",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 12,
-  },
-  detailText: {
-    fontSize: 16,
-    textAlign: "center",
-    marginVertical: 12,
-  },
-  addressContainer: {
-    paddingVertical: 8,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addressValue: {
-    fontSize: 16,
-    color: "gray",
-    textAlign: "center",
   },
 });
