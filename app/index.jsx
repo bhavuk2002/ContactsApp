@@ -30,6 +30,21 @@ export default function Index() {
     });
   };
 
+  const renderItem = ({ item, index }) => {
+    console.log(item);
+    const isFirst = index === 0;
+    const isLast = index === contacts.length - 1;
+
+    return (
+      <ContactCard
+        item={item}
+        handleViewDetails={handleViewDetails}
+        isFirst={isFirst}
+        isLast={isLast}
+      />
+    );
+  };
+
   return (
     <>
       <Stack.Screen
@@ -59,9 +74,7 @@ export default function Index() {
         <FlatList
           data={contacts}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ContactCard item={item} handleViewDetails={handleViewDetails} />
-          )}
+          renderItem={(item) => renderItem(item)}
           ListEmptyComponent={
             <Text style={styles.emptyText}>No contacts yet</Text>
           }
@@ -74,7 +87,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 2,
+    marginTop: 8,
   },
   emptyText: {
     textAlign: "center",

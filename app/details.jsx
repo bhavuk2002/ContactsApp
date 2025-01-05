@@ -153,7 +153,7 @@ export default function DetailView() {
               marginTop: 16,
               borderRadius: 24,
               // height: 52,
-              backgroundColor: "white",
+              backgroundColor: "#fdfefe",
               paddingHorizontal: 24,
               paddingVertical: 12,
               flexDirection: "row",
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   detailBox: {
     borderRadius: 36,
-    backgroundColor: "white",
+    backgroundColor: "#fdfefe",
     paddingBottom: 8,
     alignItems: "center",
     position: "relative",

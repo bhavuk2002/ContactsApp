@@ -1,28 +1,71 @@
-// components/ContactCard.js
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 
-const ContactCard = ({ item, handleViewDetails }) => {
+const ContactCard = ({ item, handleViewDetails, isFirst, isLast }) => {
+  const borderRadiusStyle = {
+    borderTopLeftRadius: isFirst ? 32 : 0,
+    borderTopRightRadius: isFirst ? 32 : 0,
+    borderBottomLeftRadius: isLast ? 32 : 0,
+    borderBottomRightRadius: isLast ? 32 : 0,
+  };
+
+  const cardStyle = {
+    borderBottomWidth: isLast ? 0 : 2, // Remove border for last card
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.contactCard}
-      onPress={() => handleViewDetails(item)}
-    >
-      <Text style={styles.contactName}>{item.name}</Text>
-      <Text style={styles.contactPhone}>{item.phone}</Text>
+    <TouchableOpacity onPress={() => handleViewDetails(item)}>
+      <View style={[styles.contactCard, borderRadiusStyle]}>
+        {/* Avatar Section */}
+        <View style={styles.avatarContainer}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>{item.name[0]}</Text>
+          </View>
+        </View>
+
+        {/* Details Section */}
+        <View style={[styles.detailsContainer, cardStyle]}>
+          <Text style={styles.contactName}>{item.name}</Text>
+          <Text style={styles.contactPhone}>{item.phone}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   contactCard: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    flexDirection: "row",
+    // paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: "#fdfefe",
+  },
+  avatarContainer: {
+    marginRight: 16,
+    justifyContent: "center",
+  },
+  avatar: {
+    width: 42,
+    height: 42,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatarText: {
+    textAlign: "center",
+    fontSize: 18,
+  },
+  detailsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingVertical: 8,
+    borderBottomColor: "#e3e3e3",
   },
   contactName: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "400",
   },
   contactPhone: {
     fontSize: 16,
