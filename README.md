@@ -54,6 +54,77 @@ Before you begin, ensure you have the following installed:
 
    From here, you can run your app on a simulator (Android or iOS), or on a physical target device.
 
+## Generating a Build for the Expo App
+
+Follow these steps to generate an APK for the Expo app.
+
+---
+
+### Option 1: Using EAS (Expo Application Services)
+
+Expo provides a managed workflow to generate APKs using their cloud build service.
+
+1. **Install EAS CLI**
+
+   Install the EAS CLI globally if you haven’t already:
+
+   ```bash
+   npm install -g eas-cli
+   ```
+
+2. Log in to Expo
+   Log in to your Expo account:
+
+   ```bash
+   eas login
+   ```
+
+3. Configure EAS for Your Project
+   If it’s your first time using EAS in this project, configure it:
+
+   ```bash
+   eas build:configure
+   ```
+
+4. Generate the APK
+   Build the APK using the following command:
+
+   ```bash
+   eas build -p android --profile preview
+   ```
+
+5. Download the APK
+   Once the build completes, a download link will be provided in the terminal.
+   Alternatively, list all your builds to retrieve the link:
+
+   ```bash
+   eas build:list
+   ```
+
+### Option 2: Local Build (Eject Workflow)
+
+If you need custom native modules or want to build the APK locally:
+
+1. Eject the App
+   Convert your Expo app to a bare React Native project:
+
+   ```bash
+   expo eject
+   ```
+
+2. Open in Android Studio
+
+   - Navigate to the `android` folder in your project.
+   - Open the project in Android Studio.
+
+3. Build the APK
+
+   - In Android Studio, go to Build > Build Bundle(s)/APK(s) > Build APK(s).
+   - The APK will be generated in the android/app/build/outputs/apk/ folder.
+
+4. Test the APK
+   - Install the APK on an Android device or emulator to ensure everything works as expected.
+
 ## 🔄 Workflow
 
 ### Main Screens:
@@ -117,3 +188,11 @@ Before you begin, ensure you have the following installed:
 
 - Integration with a backend for storing contacts remotely.
 - Adding support for contact groups or categories.
+
+```
+
+```
+
+```
+
+```
