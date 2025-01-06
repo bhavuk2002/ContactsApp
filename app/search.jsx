@@ -1,10 +1,19 @@
 import React, { useState, useMemo } from "react";
-import { View, Text, FlatList, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  BackHandler,
+  TouchableOpacity,
+} from "react-native";
 import { useRouter, Stack } from "expo-router";
 import { useSelector } from "react-redux";
 import { selectFilteredContacts } from "../redux/contactSlice";
 import { debounce } from "lodash";
 import ContactCard from "../components/ContactCard";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Search() {
   const router = useRouter();
@@ -54,6 +63,7 @@ export default function Search() {
     <>
       <Stack.Screen
         options={{
+          headerShown: false,
           headerTitle: () => (
             <TextInput
               style={styles.searchInput}
@@ -65,6 +75,28 @@ export default function Search() {
           ),
         }}
       />
+      <View
+        style={{
+          marginTop: 48,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          columnGap: 32,
+          paddingLeft: 14,
+          paddingBottom: 12,
+        }}
+      >
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back-outline" size={24} />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          value={searchTerm}
+          onChangeText={handleSearch}
+          autoFocus={true}
+        />
+      </View>
       <View style={styles.container}>
         <FlatList
           data={filteredContacts}
@@ -85,7 +117,7 @@ export default function Search() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 10,
   },
   searchInput: {
